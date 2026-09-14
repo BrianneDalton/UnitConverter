@@ -8,18 +8,25 @@ namespace UnitConverter.Pages;
 public class ConversionsModel : PageModel
 {
     [BindProperty(SupportsGet = true)]
-    public string Input {get; set;} = string.Empty;
+    public string Input {get; set;} = "3.1415";
     public string Output {get; set;} = string.Empty;
 
     [BindProperty(SupportsGet = true)]
-    public string ConversionType {get; set;} = string.Empty;
+    public string ConversionType {get; set;} = "MilesToKilometers";
 
 
 
     public void OnGet()
     {
-        ViewData["ConversionType"] = string.Concat(ConversionType.Select(x => Char.IsUpper(x) ? " " + x
-            : x.ToString())).TrimStart(' ');;
+        //ViewData["ConversionType"] = string.Concat(ConversionType.Select(x => Char.IsUpper(x) ? " " + x
+          //  : x.ToString())).TrimStart(' ');;
+
+        string conversionType = string.Concat(ConversionType.Select(x => Char.IsUpper(x) ? " " + x
+            : x.ToString())).TrimStart(' ');
+
+        conversionType = conversionType.Replace(" To ", " to ");
+        ViewData["ConversionType"] = conversionType;
+
         ViewData["Title"] = "Conversions";
         double doubleInput;
 
